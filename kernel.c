@@ -1,10 +1,6 @@
 #include "kernel.h"
 #include "common.h"
 
-typedef unsigned char uint8_t;
-typedef unsigned int uint32_t;
-typedef uint32_t size_t;
-
 extern char __bss[], __bss_end[], __stack_top[];
 
 struct sbiret sbi_call(long arg0, long arg1, long arg2, long arg3, long arg4, long arg5, long fid, long eid)
@@ -32,9 +28,9 @@ void putchar(char ch) {
 
 void kernel_main(void) {
     memset(__bss, 0, (size_t) __bss_end - (size_t) __bss);
-
-    printf("\n\nHello, %s\n", "Kearge!");
-    printf("1 + 2 = %d, %x\n", 1 + 2, 0x1234abcd);
+    
+    PANIC("booted!");
+    printf("unreachable here!\n");
 
     for (;;) {
         __asm__ __volatile__("wfi");
